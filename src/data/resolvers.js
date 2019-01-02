@@ -23,6 +23,22 @@ export const resolvers = {
           else resolve(newContact)
         })
       })
+    },
+    updateContact: (root, { input }) => {
+      return new Promise((resolve, reject) => {
+        Contacts.findOneAndUpdate({ _id: input.id }, input, { new: true }, (err, contact) => {
+          if (err) reject(err)
+          else resolve(contact)
+        })
+      })
+    },
+    deleteContact: (root, { id }) => {
+      return new Promise((resolve, reject) => {
+        Contacts.deleteOne({ _id: id }, (err) => {
+          if (err) reject(err)
+          else resolve('Successfully deleted contact!')
+        })
+      })
     }
   }
 }
